@@ -24,7 +24,7 @@ app.prepare().then(() => {
   server.use(express.json());
   server.use(cors());
 
-  
+
   server.use("/api/teams", teamsRoutes);
   
   server.all("*", (req, res) => {
