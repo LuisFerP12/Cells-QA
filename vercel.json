@@ -1,0 +1,22 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "src/app/**/*.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "src/app/**/*.jsx",
+        "use": "@vercel/next"
+      },
+      {
+        "src": "src/backend/**/*.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      { "src": "/api/(.*)", "dest": "/src/backend/routes/$1" },
+      { "src": "/(.*)", "dest": "/src/app/$1" }
+    ]
+  }
+  
