@@ -18,7 +18,7 @@ const Tests = ({ params }) => {
     const fetchTestMetrics = async () => {
       try {
         const response = await axios.get(
-          `/api/tests/test-metrics/${params.directoryId}`
+          `https://cells-qa.onrender.com/api/tests/test-metrics/${params.directoryId}`
         );
         setTestItems(response.data);
         console.log("Test metrics fetched:", response.data);
@@ -45,7 +45,7 @@ const Tests = ({ params }) => {
         session.user.id,
         params.directoryId
       );
-      const response = await axios.post("/api/tests/createTest", {
+      const response = await axios.post("https://cells-qa.onrender.com/api/tests/createTest", {
         userId: session.user.id,
         directoryId: directoryId,
         title,

@@ -15,7 +15,7 @@ function Modal({ onClose, refreshDirectories, teamId }) {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "/api/projects/addDirectory",
+        "https://cells-qa.onrender.com/api/projects/addDirectory",
         {
           directoryName,
           descripcion,

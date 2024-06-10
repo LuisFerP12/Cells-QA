@@ -31,7 +31,7 @@ export default function Home() {
     if (data.password !== data.confirmPassword) {
       setAlert("Las contraseñas no coinciden");
     }
-    const res = await fetch("/api/users/register", {
+    const res = await fetch("https://cells-qa.onrender.com/api/users/register", {
       method: "POST",
       body: JSON.stringify({
         username: data.username,

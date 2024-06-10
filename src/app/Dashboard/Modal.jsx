@@ -14,7 +14,7 @@ function Modal({ onClose, refreshTeams, userId }) {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "/api/teams/createTeam",
+        "https://cells-qa.onrender.com/api/teams/createTeam",
         {
           teamName,
           userId: userId,

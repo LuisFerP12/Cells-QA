@@ -38,7 +38,7 @@ export default function Home() {
         return;
       }
       const response = await axios.get(
-        `/api/teams/${userId}/teams`
+        `https://cells-qa.onrender.com/api/teams/${userId}/teams`
       );
       console.log("Equipos del usuario  :", response.data.teams);
       setTeams(response.data.teams);
@@ -77,7 +77,7 @@ export default function Home() {
       }
 
       console.log("Deleting directory ID:", selectedTeamId);
-      const url = `/api/teams/user-teams/${userId}/${selectedTeamId}`;
+      const url = `https://cells-qa.onrender.com/api/teams/user-teams/${userId}/${selectedTeamId}`;
       await axios.delete(url);
       setTeams((teams) => teams.filter((t) => t.teamId !== selectedTeamId));
       closeModal();

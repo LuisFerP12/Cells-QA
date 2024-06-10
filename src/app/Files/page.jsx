@@ -13,7 +13,7 @@ export default function Home() {
     const directoryFather = "36";
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:3005/api/files/dson/${teamId}/${directoryFather}`);
+            const response = await axios.get(`https://cells-qa.onrender.com/api/files/dson/${teamId}/${directoryFather}`);
             setResults(response.data); 
         } catch (error) {
             setError(error.message);
