@@ -23,7 +23,7 @@ const Selector = ({ onInstructionsChange, onUrlChange, tesId }) => {
       const fetchInstructions = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:3005/api/tests/get-all-tests/${testId}`
+            `/api/tests/get-all-tests/${testId}`
           );
           setInstructions(
             response.data.map((inst) => ({
