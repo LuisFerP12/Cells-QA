@@ -1,0 +1,5 @@
+url,prueba,searchKey,searchBy,textInput,action
+"https://facebook.com", 1, "email","id","email1@gmail.com","sendKeys"
+,2, "email","id","email2@gmail.com","sendKeys"
+"https://facebook.com2",1 , "email","id","email2@gmail.com","sendKeys"
+,2, "email","id","email2@gmail.com","sendKeys"

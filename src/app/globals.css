@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/fonts/DMSans.ttf") format("truetype");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition: none;
+  }
+}
+
+body {
+  @apply min-w-full bg-[#F3F4F8] text-[#232360];
+  font-family: "DM Sans";
+}
+
+h1 {
+  @apply text-[38px] font-bold;
+}
+
+h2 {
+  @apply text-[32px] font-bold;
+}
+
+h3 {
+  @apply text-[20px] font-medium;
+}
+
+label {
+  @apply text-[20px] font-bold;
+}
+
+option {
+  @apply text-[15px] text-black;
+}
+
+.w-85 {
+  width: 85%;
+}
+
+.input-error {
+  @apply border border-red-500 focus:border-red-700 focus:ring rounded-md py-2 px-4  w-56  text-black font-medium;
+}
+
+.input {
+  @apply border border-gray-300 focus:border-indigo-500 focus:ring rounded-md  py-2 px-4 h-10 w-56 text-black font-medium;
+}
+
+.button {
+  @apply py-2 px-4 rounded-md bg-blue-800 font-bold text-white border-none hover:bg-blue-900;
+}
+
+.button-delete {
+  @apply py-2 px-4 rounded-md bg-red-700 font-bold text-white border-none hover:bg-red-800;
+}
+
+.button-send {
+  @apply py-2 px-4 rounded-md bg-green-700 font-bold text-white border-none hover:bg-green-800;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 80px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  font-size: 18px;
+}

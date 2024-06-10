@@ -1,0 +1,115 @@
+body {
+  background-color: #f3f4f8;
+}
+
+/* Tabla completa */
+table.diff {
+  border-collapse: collapse;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  height: 771px;
+  overflow: scroll;
+  scroll-behavior: smooth;
+}
+/* Para ambas tablas */
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  gap: 4%;
+  padding: 10px;
+}
+/* Para cada tabla */
+.height-container {
+  height: 580px;
+  width: 50%;
+  border-radius: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  scroll-behavior: smooth;
+}
+
+/* width del scrollbar */
+.height-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track -> Palo completo */
+.height-container::-webkit-scrollbar-track {
+  background: #fff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: calc(100% - 5px);
+}
+
+/* Handle -> La barra del scrollbar */
+.height-container::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 6px;
+  min-height: 22px;
+}
+/* Botones -> te lo rifas tu @luis */
+.height-container::-webkit-scrollbar-button {
+  background-color: transparent; /* Opcional: hace transparente el fondo si solo quieres mostrar la imagen */
+  background-image: url("/public/img/boton.png"); /* Coloca la URL de tu imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-position: center; /* Centra la imagen en el botón */
+
+  border: none; /* Elimina cualquier borde predeterminado */
+  background-size: contain;
+}
+
+.height-container::-webkit-scrollbar-button:single-button:increment {
+  background-image: url("/public/img/boton2.png");
+}
+
+/* Quitarle el color y cambiar el tamaño de texto de todo */
+table.diff .diff_header,
+table.diff .diff_next,
+table.diff .diff_line,
+table.diff .diff_num {
+  background-color: transparent;
+  font-size: 13px;
+}
+/* Poner las lineas grises cada odd line */
+/*
+table.diff tr:nth-child(odd) .diff_line{
+    background-color: #e7e7e7;
+}
+
+*/
+
+/* Aplicar padding al primer tr de la tabla con clase .diff */
+table.diff td {
+  padding-top: 5px;
+}
+
+table.diff tr th.diff_header {
+  font-size: 24px;
+  font-weight: bold;
+  color: #232360;
+  border-bottom: 1px black solid;
+  padding: 15px;
+}
+table.diff .diff_num {
+  border-right: 1px black solid;
+  vertical-align: top;
+}
+table.diff .diff_next a {
+  text-decoration: none;
+  margin-left: 5px;
+}
+td.diff_line {
+  white-space: normal; /* Asegura que el contenido puede romperse en varias líneas */
+  word-wrap: break-word; /* Permite que las palabras se rompan y pasen a la siguiente línea si no caben en la línea actual */
+  word-break: break-word; /* Rompe las palabras en puntos arbitrarios si es necesario para evitar desbordamiento horizontal */
+}
+
+.folder {
+  height: 23px;
+  width: auto;
+  margin-right: 12px;
+}

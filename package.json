@@ -1,0 +1,46 @@
+{
+  "name": "cells-qa",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "node src/backend/server.js",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@prisma/client": "^5.14.0",
+    "autoprefixer": "10.4.19",
+    "axios": "^1.7.1",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "bootstrap-icons": "^1.11.3",
+    "cors": "^2.8.5",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.1",
+    "express": "^4.17.3",
+    "fast-csv": "^5.0.1",
+    "fast-levenshtein": "^3.0.0",
+    "json-bigint": "^1.0.0",
+    "json2csv": "^6.0.0-alpha.2",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-simple": "^0.5.6",
+    "multer": "^1.4.5-lts.1",
+    "next": "^14.2.3",
+    "next-auth": "^4.24.7",
+    "postcss": "8.4.38",
+    "react": "^18.3.1",
+    "react-circular-progressbar": "^2.1.0",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.51.4",
+    "react-modal": "^3.16.1",
+    "selenium-webdriver": "^4.19.0",
+    "tailwindcss": "3.4.3"
+  },
+  "devDependencies": {
+    "prisma": "^5.14.0"
+  }
+}

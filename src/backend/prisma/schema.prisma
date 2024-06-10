@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model directories {
+  directoryId       Int           @id @default(autoincrement())
+  directoryName     String
+  directoryRoute    String
+  directoryFather   Int?
+  dateCreated       DateTime?     @map("datecreated") @db.Date
+  lastModified      String?       @map("lastmodified") @db.VarChar(15)
+  versions          Int?
+  teamId            Int
+  descripcion       String?
+  directories       directories?  @relation("directoriesTodirectories", fields: [directoryFather], references: [directoryId], onDelete: Cascade, onUpdate: NoAction)
+  other_directories directories[] @relation("directoriesTodirectories")
+  teams             teams?        @relation(fields: [teamId], references: [teamId], onDelete: Cascade, onUpdate: NoAction)
+  files             files[]
+  tests             tests[]       @relation("DirectoryTests") // Added relation field
+}
+
+
+model files {
+  fileId      Int          @id @default(autoincrement())
+  directoryId Int?
+  fileName    String
+  fileType    String
+  fileHashed  String
+  fileSize    Int
+  fileRoute   String
+  teamId      Int?
+  dateCreated       DateTime @map("datecreated") @db.Date
+  descripcion       String?
+  directories directories? @relation(fields: [directoryId], references: [directoryId], onDelete: Cascade, onUpdate: NoAction, map: "files_directoryid_fkey")
+  teams       teams?       @relation(fields: [teamId], references: [teamId], onDelete: Cascade, onUpdate: NoAction, map: "files_teamid_fkey")
+}
+
+model instructions {
+  instructionId     Int     @id @default(autoincrement())
+  testId            Int
+  action            String
+  sequence          Int
+  searchKey         String
+  searchBy          String
+  textInput         String
+  instructionStatus Boolean @default(false)
+  tests             tests   @relation(fields: [testId], references: [testId], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model teams {
+  teamId      Int           @id @default(autoincrement())
+  teamName    String
+  code        String?
+  directories directories[]
+  files       files[]
+  user_teams  user_teams[]
+}
+
+model tests {
+  testId       Int            @id @default(autoincrement())
+  userId       Int
+  testStatus   Boolean
+  createdAt    DateTime       @db.Date
+  modifiedAt   DateTime       @db.Date
+  directoryId  Int
+  instructions instructions[]
+  title        String  
+  directories  directories?   @relation(fields: [directoryId], references: [directoryId], onDelete: Cascade, onUpdate: NoAction, name: "DirectoryTests")
+  users        users          @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction)
+}
+
+
+
+model user_teams {
+  userId Int
+  teamId Int
+  teams  teams @relation(fields: [teamId], references: [teamId], onDelete: Cascade, onUpdate: NoAction, map: "user_teams_teamid_fkey")
+  users  users @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "user_teams_userid_fkey")
+
+  @@id([userId, teamId])
+}
+
+model users {
+  userId     Int          @id @default(autoincrement())
+  username   String       @unique(map: "username_unique")
+  email      String       @unique(map: "email_unique")
+  password   String
+  tests      tests[]
+  user_teams user_teams[]
+}

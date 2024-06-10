@@ -1,0 +1,213 @@
+body{
+    background-color: #F3F4F8;
+}
+  
+header.cells{
+    background-color: #FFF;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.backG{
+    width: 100vw;
+    height: calc(100vh - 77px);
+    padding: 30px;
+}
+.backG h1{
+    font-family: DM Sans;
+    color: #232360;
+    font-size: 30px;
+    font-weight: 570;
+}
+
+.snd-header{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.snd-header-right{
+    min-width: max-content;
+    margin-left: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    row-gap: 10px;
+}
+
+.newFile, .newFolder{
+    font-family: DM Sans;
+    font-size: 14px;
+    font-weight: 550;
+    border-radius: 23px;
+    min-width: max-content;
+}
+.newFile{
+    color: #FFF;
+    background-color: #24374B;
+    padding: 15px 45px;
+    border: none;
+}
+
+.newFolder{
+    background-color: transparent;
+    color: #505050;
+    padding: 15px 15px;
+    border: 1px solid #D7D7D7;
+}
+
+.d-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    margin: 30px 0;
+}
+.files{
+    background-color: #FFF;
+    border-radius: 10px;
+    height: 500px;
+    flex: 5;
+    overflow-y: scroll;
+    padding: 30px;
+    padding-bottom: 0px;
+}
+.table {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: max-content
+}
+
+.header-t {
+    font-family: DM Sans;
+    color: #768396;
+    font-weight: normal;
+    font-size: 16px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.row {
+    height: 56px;
+    font-family: DM Sans;
+    color: #768396;
+    font-size: 16px;
+    padding: 10px; /* Agregado para separar el contenido */
+    min-width: max-content;
+    display: flex;
+    align-items: center;
+}
+.name{   
+    flex: 3;
+    font-family: DM Sans;
+    color: #a3a3ce;
+    font-size: 17px;
+    font-weight: normal;
+}
+.size{   flex: 1;}
+.created{flex: 2;}
+.desc{   flex: 4;}
+.arrow{
+    background-image: url("/img/upArrow.png");
+    background-size: contain;
+    width: 12px;
+    height: 12px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: transform 0.4s ease; 
+}
+.arrow.rotated{
+    transform: rotateX(180deg);
+}
+.projects{
+    background-image: url("/img/Project.png");
+    background-size: cover;
+    margin-right: 10px;
+    width: 36px;
+    height: 36px;
+}
+.proj-folder{
+    background-image: url("/img/Path.png");
+    background-size: cover;
+    margin-left: 6px;
+    margin-right: 15px;
+    width: 25px;
+    height: 20px;
+}
+.folders{
+    background-color: #FFF;
+    border-radius: 10px;
+    height: 500px;
+    flex: 2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.mini-fol{
+    font-family: DM Sans;
+    font-size: 17px;
+    color: #232360;
+    min-height: max-content;
+    border-radius: 10px;
+    height: 100%;
+    min-width: max-content  ;
+    width: 100%;
+    border: 1px solid #D9DFE1;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    overflow-y: scroll;
+}
+.mini-fol-l{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 6px;
+    margin: 20px;
+}
+.mini-fol-r{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 10px;
+}
+.folsection{
+    height: 40px;
+    width: max-content;
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: 23px;
+    border: 1px solid #D7D7D7;
+}
+@media (max-width: 1100px) {
+    .d-box{
+        flex-direction: column;
+    }
+    .files{
+        width: 100%;
+    }
+    .folders{
+        width: 100%;
+        height: max-content;
+        flex-direction: row;
+        grid-template-columns: repeat(1, 1fr); 
+    }
+}
