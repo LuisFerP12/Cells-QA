@@ -7,12 +7,12 @@
     ],
     "builds": [
       {
-        "src": "src/backend/server.js",
-        "use": "@vercel/node"
+        "src": "next.config.js",
+        "use": "@vercel/next"
       },
       {
-        "src": "src/app/**/*",
-        "use": "@vercel/next"
+        "src": "src/backend/server.js",
+        "use": "@vercel/node"
       }
     ]
   }
