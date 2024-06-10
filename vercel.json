@@ -1,18 +1,19 @@
 {
-    "version": 2,
-    "builds": [
+    "rewrites": [
       {
-        "src": "next.config.js",
-        "use": "@vercel/next"
-      },
+        "source": "/api/(.*)",
+        "destination": "/api/$1"
+      }
+    ],
+    "builds": [
       {
         "src": "src/backend/server.js",
         "use": "@vercel/node"
+      },
+      {
+        "src": "src/app/**/*",
+        "use": "@vercel/next"
       }
-    ],
-    "routes": [
-      { "src": "/api/(.*)", "dest": "/src/backend/server.js" },
-      { "src": "/(.*)", "dest": "/$1" }
     ]
   }
   
