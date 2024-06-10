@@ -28,7 +28,7 @@ export default function Home() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3005/api/projects/dfather/1"
+        "/api/projects/dfather/1"
       );
       setDirectories(response.data);
       setFilteredDirectories(response.data);
@@ -44,7 +44,7 @@ export default function Home() {
   const handleDelete = async () => {
     try {
       console.log("Deleting directory ID:", selectedDirectoryId); // Debug: Ensure this is the correct ID
-      const url = `http://localhost:3005/api/projects/deleteDirectory/${selectedDirectoryId}`;
+      const url = `/api/projects/deleteDirectory/${selectedDirectoryId}`;
       await axios.delete(url);
       setDirectories((directories) =>
         directories.filter((d) => d.directoryId !== selectedDirectoryId)

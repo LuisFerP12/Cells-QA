@@ -15,7 +15,7 @@ function Modal({ onClose, refreshDirectories, teamId }) {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3005/api/projects/addDirectory",
+        "/api/projects/addDirectory",
         {
           directoryName,
           descripcion,

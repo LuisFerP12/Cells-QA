@@ -38,7 +38,7 @@ export default function Home() {
         return;
       }
       const response = await axios.get(
-        `http://localhost:3005/api/teams/${userId}/teams`
+        `/api/teams/${userId}/teams`
       );
       console.log("Equipos del usuario  :", response.data.teams);
       setTeams(response.data.teams);
@@ -77,7 +77,7 @@ export default function Home() {
       }
 
       console.log("Deleting directory ID:", selectedTeamId);
-      const url = `http://localhost:3005/api/teams/user-teams/${userId}/${selectedTeamId}`;
+      const url = `/api/teams/user-teams/${userId}/${selectedTeamId}`;
       await axios.delete(url);
       setTeams((teams) => teams.filter((t) => t.teamId !== selectedTeamId));
       closeModal();

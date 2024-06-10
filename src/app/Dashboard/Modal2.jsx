@@ -14,7 +14,7 @@ function Modal2({ onClose, refreshTeams, userId }) {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3005/api/teams/addTeam",
+        "/api/teams/addTeam",
         {
           code,
           userId: userId,
