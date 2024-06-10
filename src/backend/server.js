@@ -24,9 +24,11 @@ app.prepare().then(() => {
   server.use(express.json());
   server.use(cors());
 
-
+  server.use("/api/users", userRoutes);
+  server.use("/api/tests", testRoutes);
   server.use("/api/teams", teamsRoutes);
-  
+  server.use("/api/projects", projectRoutes);
+  server.use("/api/files", filesRoutes);
   server.all("*", (req, res) => {
     return handle(req, res);
   });
