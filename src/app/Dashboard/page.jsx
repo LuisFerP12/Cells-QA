@@ -1,6 +1,6 @@
 // page.jsx
 "use client";
-import TopBar from "@/components/Topbar";
+import Header from "@/components/Topbar"
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -95,7 +95,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col min-h-screen">
-      <TopBar />
+      <Header />
       {startIndex > 0 && (
         <button
           className="absolute left-10 top-[450px] z-10 "

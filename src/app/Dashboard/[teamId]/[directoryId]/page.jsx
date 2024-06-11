@@ -89,6 +89,10 @@ const Tests = ({ params }) => {
     );
   }
 
+  const handleRemove = (id) => {
+    setTestItems(testItems.filter((test) => test.testId !== id));
+  };
+
   return (
     <div className="p-6 bg-gray-100 flex justify-center">
       <Sidebar page="Test" />
@@ -101,6 +105,7 @@ const Tests = ({ params }) => {
               title={item.title}
               testCount={item.testCount}
               passPercentage={item.passPercentage}
+              onRemove={handleRemove}
             />
           ))}
           <DownloadButton directoryId={params.directoryId} />

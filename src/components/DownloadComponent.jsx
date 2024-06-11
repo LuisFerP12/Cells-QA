@@ -4,7 +4,7 @@ import axios from 'axios';
 const DownloadButton = ({ directoryId }) => {
   const handleDownload = async () => {
     try {
-      const response = await axios.get(`/api/tests/export-metrics/${directoryId}`, {
+      const response = await axios.get(`https://cells-qa.onrender.com/api/tests/export-metrics/${directoryId}`, {
         responseType: 'blob',
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));

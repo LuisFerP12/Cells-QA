@@ -18,31 +18,71 @@ const Selector = ({ onInstructionsChange, onUrlChange, tesId }) => {
     setTestId(tesId);
   }, [tesId]);
 
+  const fetchInstructions = async () => {
+    try {
+      const response = await axios.get(
+        `https://cells-qa.onrender.com/api/tests/get-all-tests/${testId}`
+      );
+      setInstructions(
+        response.data.map((inst) => ({
+          ...inst,
+          status:
+            inst.instructionStatus === true
+              ? "Passed"
+              : inst.instructionStatus === false
+              ? "Failed"
+              : "NP",
+          isNew: false,
+        }))
+      );
+    } catch (error) {
+      console.error("Error fetching instructions:", error);
+      setError("Failed to fetch instructions.");
+    }
+  };
+
+  const handleExport = async () => {
+    try {
+      console.log("Exporting test:", testId);
+      const response = await axios.get(
+        `https://cells-qa.onrender.com/api/tests/individual-metrics/${testId}`,
+        {
+          responseType: "blob",
+        }
+      );
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `test_${testId}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Error exporting the test:", error);
+    }
+  };
+
+  const updateInstruction = async (instruction) => {
+    try {
+      const response = await axios.put(
+        `https://cells-qa.onrender.com/api/tests/update-test/${instruction.instructionId}`,
+        {
+          action: instruction.action,
+          sequence: instruction.sequence,
+          searchKey: instruction.searchKey,
+          searchBy: instruction.searchBy,
+          textInput: instruction.textInput,
+          instructionStatus: instruction.status,
+        }
+      );
+    } catch (error) {
+      console.error("Error updating instructions:", error);
+      setError("Failed to updating instructions.");
+    }
+  };
+
   useEffect(() => {
     if (testId) {
-      const fetchInstructions = async () => {
-        try {
-          const response = await axios.get(
-            `/api/tests/get-all-tests/${testId}`
-          );
-          setInstructions(
-            response.data.map((inst) => ({
-              ...inst,
-              status:
-                inst.instructionStatus === true
-                  ? "Passed"
-                  : inst.instructionStatus === false
-                  ? "Failed"
-                  : "NP",
-              isNew: false,
-            }))
-          );
-        } catch (error) {
-          console.error("Error fetching instructions:", error);
-          setError("Failed to fetch instructions.");
-        }
-      };
-
       fetchInstructions();
     }
   }, [testId]);
@@ -60,6 +100,23 @@ const Selector = ({ onInstructionsChange, onUrlChange, tesId }) => {
       },
     ]);
     setOverall("NP");
+  };
+
+  const updateOverallStatus = (instructions) => {
+    const allPassed = instructions.every(
+      (inst) => inst.status === "Passed" || inst.status === true
+    );
+    const anyFailed = instructions.some(
+      (inst) => inst.status === "Failed" || inst.status === false
+    );
+
+    if (allPassed) {
+      setOverall("Passed");
+    } else if (anyFailed) {
+      setOverall("Failed");
+    } else {
+      setOverall("NP");
+    }
   };
 
   const handleUrlChange = (e) => {
@@ -111,8 +168,23 @@ const Selector = ({ onInstructionsChange, onUrlChange, tesId }) => {
     setInstructions(newInstructions);
   };
 
-  const removeInstruction = (index) => {
+  const removeInstruction = async (index) => {
     const newInstructions = [...instructions];
+    console.log(newInstructions);
+    console.log(newInstructions[index].instructionId);
+
+    if (newInstructions[index].instructionId != undefined) {
+      console.log("Llegue tilin");
+      try {
+        const response = await axios.delete(
+          `https://cells-qa.onrender.com/api/tests/delete-instruction/${newInstructions[index].instructionId}`
+        );
+      } catch (error) {
+        console.error("Error delete instruction:", error);
+        setError("Failed to delete instruction.");
+      }
+    }
+
     newInstructions.splice(index, 1);
     setInstructions(newInstructions);
     setOverall("NP");
@@ -202,11 +274,9 @@ const Selector = ({ onInstructionsChange, onUrlChange, tesId }) => {
 
     setError("");
 
-    console.log("Instrucciones Antes de cualquier cosa:", instructions);
-
     try {
       const response = await axios.post(
-        "http://localhost:3005/api/tests/run-test",
+        "https://cells-qa.onrender.com/api/tests/run-test",
         {
           testId,
           instructions: instructions,
@@ -233,49 +303,57 @@ const Selector = ({ onInstructionsChange, onUrlChange, tesId }) => {
       });
 
       setInstructions(updatedInstructions);
+      updateOverallStatus(updatedInstructions);
 
-      if (fallbacks.length > 0) {
-        setPendingFallbacks(fallbacks);
-        setCurrentFallbackIndex(0);
-        setShowModal(true);
-      }
-    } catch (error) {
-      console.error("Error al ejecutar la prueba:", error);
-      if (error.response && error.response.data) {
-        setError(`Error: ${error.response.data.error}`);
-      } else {
-        setError("Error al ejecutar la prueba.");
-      }
-    }
+      try {
+        const newInstructions = instructions.filter((inst) => inst.isNew);
+        const postInstructions = [...newInstructions];
+        const noNewInstructions = [...instructions];
+        // Recorre postInstructions y actualiza el status
+        for (let i = 0; i < postInstructions.length; i++) {
+          if (postInstructions[i].status === "Failed") {
+            postInstructions[i].status = false;
+          } else if (postInstructions[i].status === "Passed") {
+            postInstructions[i].status = true;
+          }
+        }
 
-    try {
-      const newInstructions = instructions.filter((inst) => inst.isNew);
-      const postInstructions = [...newInstructions];
-      const noNewInstructions = [...instructions];
-      // Recorre postInstructions y actualiza el status
-      for (let i = 0; i < postInstructions.length; i++) {
-        if (postInstructions[i].status === "Failed") {
-          postInstructions[i].status = false;
-        } else if (postInstructions[i].status === "Passed") {
-          postInstructions[i].status = true;
+        for (let i = 0; i < noNewInstructions.length; i++) {
+          if (noNewInstructions[i].status === "Passed") {
+            noNewInstructions[i].status = true;
+          } else {
+            noNewInstructions[i].status = false;
+          }
+          if (noNewInstructions[i].isNew == false) {
+            await updateInstruction(noNewInstructions[i]);
+          }
+          noNewInstructions[i].isNew = false;
+        }
+        console.log("Enviando a saveTest");
+        const response2 = await axios.post(
+          "https://cells-qa.onrender.com/api/tests/save-test",
+          {
+            testId,
+            instructions: postInstructions,
+          }
+        );
+        setInstructions(noNewInstructions);
+        console.log("Fetching 1");
+        await fetchInstructions(); // Fetch the instructions after saving
+
+        if (fallbacks.length > 0) {
+          setPendingFallbacks(fallbacks);
+          setCurrentFallbackIndex(0);
+          setShowModal(true); // Show the modal with fallbacks
+        }
+      } catch (error) {
+        console.error("Error al guardar las instrucciones:", error);
+        if (error.response && error.response.data) {
+          setError(`Error: ${error.response.data.error}`);
+        } else {
+          setError("Error al guardar las instrucciones.");
         }
       }
-
-      for (let i = 0; i < noNewInstructions.length; i++) {
-        noNewInstructions[i].isNew = false;
-      }
-
-      const response2 = await axios.post(
-        "http://localhost:3005/api/tests/save-test",
-        {
-          testId,
-          instructions: postInstructions,
-        }
-      );
-      const results = response2.data.results;
-      console.log(results);
-      console.log("Instrucciones no nuevas");
-      setInstructions(noNewInstructions);
     } catch (error) {
       console.error("Error al ejecutar la prueba:", error);
       if (error.response && error.response.data) {
@@ -333,7 +411,10 @@ const Selector = ({ onInstructionsChange, onUrlChange, tesId }) => {
             </svg>
             Import
           </button>
-          <button className="py-2 px-4 rounded-md font-bold bg-white hover:bg-slate-50  flex">
+          <button
+            className="py-2 px-4 rounded-md font-bold bg-white hover:bg-slate-50  flex"
+            onClick={handleExport}
+          >
             <svg
               width="16"
               height="16"

@@ -10,7 +10,7 @@ const Sidebar = ({ page }) => {
         <ul className="mt-6">
           <li className="px-2">
             <a
-              href="/Pruebas"
+              href="/Dashboard"
               className={`flex justify-center flex-row items-center py-2 rounded-lg   ${
                 page === "Dashboard"
                   ? "text-white text-[20px]  bg-[#24374B]"
@@ -25,7 +25,7 @@ const Sidebar = ({ page }) => {
           </li>
           <li className="px-2">
             <a
-              href="/Hometests"
+              href="javascript:window.history.back()"
               className={`flex justify-center flex-row items-center py-2 rounded-lg   ${
                 page === "Test"
                   ? "text-white text-[20px]  bg-[#24374B]"
@@ -34,22 +34,7 @@ const Sidebar = ({ page }) => {
             >
               <div className="text-center">
                 <i class="bi bi-send"></i>
-                <p className="text-[10px]">Test</p>
-              </div>
-            </a>
-          </li>
-          <li className="px-2">
-            <a
-              href="/Comparacion"
-              className={`flex justify-center flex-row items-center py-2 rounded-lg   ${
-                page === "Comparacion"
-                  ? "text-white text-[20px]  bg-[#24374B]"
-                  : "text-[#24374B] text-[20px]"
-              }`}
-            >
-              <div className="text-center">
-                <i class="bi bi-book"></i>
-                <p className="text-[10px]">Compare</p>
+                <p className="text-[10px]">Volver</p>
               </div>
             </a>
           </li>

@@ -22,5 +22,10 @@ router.get(
 );
 router.get("/get-all-tests/:testId", testController.getInstructionsByTestId);
 router.delete("/delete-test/:testId", testController.deleteTest);
+router.put("/update-test/:instructionId", testController.updateInstruction);
+router.delete(
+  "/delete-instruction/:instructionId",
+  testController.deleteInstruction
+);
 
 module.exports = router;

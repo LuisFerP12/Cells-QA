@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" type="text/css" href="../css/resetStyle.css">
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+
+        <title>Página Principal</title>
+    </head>
+    <body>
+        <header class="cells">
+            <div class="inputCont">
+                <input type="text" placeholder="Search anything...">
+                <img src="../img/Search.png" class="search" onclick="search()">
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="snd-header">
+                <h1>Version Changes</h1>
+                <div class="legends">
+                    <h2>Legend</h2>
+                    <p class="diff_add">Added</p>
+                    <p class="diff_chg">Changed</p>
+                    <p class="diff_sub" style="margin-right: 0px;">Deleted</p>
+                </div>
+            </div>
+
+            <iframe src="./table.html" frameborder="0" class="emb"></iframe>
+            <!-- <iframe src="../diffNormal/diferencias.html" frameborder="0" class="emb"></iframe> -->
+        </div>        
+    </body>
+</html>

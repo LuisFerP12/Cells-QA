@@ -11,14 +11,14 @@ function Modal({ onClose, onCreate }) {
   };
 
   const handleSubmit = () => {
-    
     console.log("Submitting test name:", testName); // Debugging puto joto
     onCreate(testName);
+    onClose();
   };
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+      className="fixed inset-0 -top-10 z-10 bg-black bg-opacity-50 flex justify-center items-center"
       onClick={handleOutsideClick}
     >
       <div
